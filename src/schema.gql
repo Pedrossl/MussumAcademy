@@ -1,0 +1,436 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BaseDTO {
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  updateAt: DateTime!
+}
+
+type BaseDTOAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  updateAt: DateTime
+}
+
+type BaseDTOConnection {
+  """Array of edges."""
+  edges: [BaseDTOEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type BaseDTOCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  updateAt: Int
+}
+
+input BaseDTODeleteFilter {
+  and: [BaseDTODeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  or: [BaseDTODeleteFilter!]
+  updateAt: DateFieldComparison
+}
+
+type BaseDTODeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  updateAt: DateTime
+}
+
+type BaseDTOEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the BaseDTO"""
+  node: BaseDTO!
+}
+
+input BaseDTOFilter {
+  and: [BaseDTOFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  or: [BaseDTOFilter!]
+  updateAt: DateFieldComparison
+}
+
+type BaseDTOMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  updateAt: DateTime
+}
+
+type BaseDTOMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  updateAt: DateTime
+}
+
+input BaseDTOSort {
+  direction: SortDirection!
+  field: BaseDTOSortFields!
+  nulls: SortNulls
+}
+
+enum BaseDTOSortFields {
+  createdAt
+  deletedAt
+  updateAt
+}
+
+input BaseDTOUpdateFilter {
+  and: [BaseDTOUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  or: [BaseDTOUpdateFilter!]
+  updateAt: DateFieldComparison
+}
+
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
+input CreateBaseDTO {
+  createdAt: DateTime
+  deletedAt: DateTime
+  updateAt: DateTime
+}
+
+input CreateLessonDTO {
+  description: String!
+}
+
+input CreateManyBaseDTOSInput {
+  """Array of records to create"""
+  baseDTOS: [CreateBaseDTO!]!
+}
+
+input CreateManyLessonsInput {
+  """Array of records to create"""
+  lessons: [CreateLessonDTO!]!
+}
+
+input CreateOneBaseDTOInput {
+  """The record to create"""
+  baseDTO: CreateBaseDTO!
+}
+
+input CreateOneLessonInput {
+  """The record to create"""
+  lesson: CreateLessonDTO!
+}
+
+input CursorPaging {
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteManyBaseDTOSInput {
+  """Filter to find records to delete"""
+  filter: BaseDTODeleteFilter!
+}
+
+input DeleteManyLessonsInput {
+  """Filter to find records to delete"""
+  filter: lessonDeleteFilter!
+}
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+input DeleteOneBaseDTOInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneLessonInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+type LessonConnection {
+  """Array of nodes."""
+  nodes: [lesson!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type LessonDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  updateAt: DateTime
+}
+
+type Mutation {
+  createManyBaseDTOS(input: CreateManyBaseDTOSInput!): [BaseDTO!]!
+  createManyLessons(input: CreateManyLessonsInput!): [lesson!]!
+  createOneBaseDTO(input: CreateOneBaseDTOInput!): BaseDTO!
+  createOneLesson(input: CreateOneLessonInput!): lesson!
+  deleteManyBaseDTOS(input: DeleteManyBaseDTOSInput!): DeleteManyResponse!
+  deleteManyLessons(input: DeleteManyLessonsInput!): DeleteManyResponse!
+  deleteOneBaseDTO(input: DeleteOneBaseDTOInput!): BaseDTODeleteResponse!
+  deleteOneLesson(input: DeleteOneLessonInput!): LessonDeleteResponse!
+  updateManyBaseDTOS(input: UpdateManyBaseDTOSInput!): UpdateManyResponse!
+  updateManyLessons(input: UpdateManyLessonsInput!): UpdateManyResponse!
+  updateOneBaseDTO(input: UpdateOneBaseDTOInput!): BaseDTO!
+  updateOneLesson(input: UpdateOneLessonInput!): lesson!
+}
+
+type OffsetPageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+}
+
+input OffsetPaging {
+  """Limit the number of records returned"""
+  limit: Int
+
+  """Offset to start returning records from"""
+  offset: Int
+}
+
+type PageInfo {
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
+}
+
+type Query {
+  baseDTO(
+    """The id of the record to find."""
+    id: ID!
+  ): BaseDTO
+  baseDTOS(
+    """Specify to filter the records returned."""
+    filter: BaseDTOFilter! = {}
+
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [BaseDTOSort!]! = []
+  ): BaseDTOConnection!
+  lesson(
+    """The id of the record to find."""
+    id: ID!
+  ): lesson
+  lessons(
+    """Specify to filter the records returned."""
+    filter: lessonFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [lessonSort!]! = []
+  ): LessonConnection!
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+input UpdateBaseDTO {
+  createdAt: DateTime
+  deletedAt: DateTime
+  updateAt: DateTime
+}
+
+input UpdateLesson {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  updateAt: DateTime
+}
+
+input UpdateManyBaseDTOSInput {
+  """Filter used to find fields to update"""
+  filter: BaseDTOUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateBaseDTO!
+}
+
+input UpdateManyLessonsInput {
+  """Filter used to find fields to update"""
+  filter: lessonUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateLesson!
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+input UpdateOneBaseDTOInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateBaseDTO!
+}
+
+input UpdateOneLessonInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateLesson!
+}
+
+type lesson {
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  description: String!
+  updateAt: DateTime!
+}
+
+type lessonAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  updateAt: DateTime
+}
+
+type lessonCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  description: Int
+  updateAt: Int
+}
+
+input lessonDeleteFilter {
+  and: [lessonDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  or: [lessonDeleteFilter!]
+  updateAt: DateFieldComparison
+}
+
+input lessonFilter {
+  and: [lessonFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  or: [lessonFilter!]
+  updateAt: DateFieldComparison
+}
+
+type lessonMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  updateAt: DateTime
+}
+
+type lessonMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  updateAt: DateTime
+}
+
+input lessonSort {
+  direction: SortDirection!
+  field: lessonSortFields!
+  nulls: SortNulls
+}
+
+enum lessonSortFields {
+  createdAt
+  deletedAt
+  description
+  updateAt
+}
+
+input lessonUpdateFilter {
+  and: [lessonUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  or: [lessonUpdateFilter!]
+  updateAt: DateFieldComparison
+}

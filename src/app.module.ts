@@ -7,6 +7,7 @@ import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LessonModule } from './modules/lesson/lesson.module';
 import { BaseModule } from './modules/base/base.module';
+import { Lesson } from './modules/lesson/entities/lesson.entity';
 
 
 @Module({
@@ -23,7 +24,7 @@ import { BaseModule } from './modules/base/base.module';
       username: 'postgres',
       password: 'docker',
       database: 'postgres',
-      entities: [],
+      entities: [Lesson],
       synchronize: true,
     }),
     LessonModule,
