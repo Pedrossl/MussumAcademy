@@ -6,6 +6,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LessonModule } from './modules/lesson/lesson.module';
+import { BaseModule } from './modules/base/base.module';
 
 
 @Module({
@@ -26,6 +27,7 @@ import { LessonModule } from './modules/lesson/lesson.module';
       synchronize: true,
     }),
     LessonModule,
+    BaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
