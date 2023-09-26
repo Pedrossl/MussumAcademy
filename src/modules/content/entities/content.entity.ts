@@ -1,7 +1,11 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Base } from 'src/modules/base/entities/base.entity';
+import { Column, Entity } from 'typeorm';
 
-@ObjectType()
-export class Content {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+@Entity()
+export class Content extends Base {
+  @Column()
+  description: string;
+
+  @Column()
+  linkContent: string;
 }
