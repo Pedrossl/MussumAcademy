@@ -99,6 +99,10 @@ input CreateBaseDTO {
   updateAt: DateTime
 }
 
+input CreateDiciplineDTO {
+  name: String!
+}
+
 input CreateLessonDTO {
   description: String!
 }
@@ -106,6 +110,11 @@ input CreateLessonDTO {
 input CreateManyBaseDTOSInput {
   """Array of records to create"""
   baseDTOS: [CreateBaseDTO!]!
+}
+
+input CreateManyDiciplinesInput {
+  """Array of records to create"""
+  diciplines: [CreateDiciplineDTO!]!
 }
 
 input CreateManyLessonsInput {
@@ -116,6 +125,11 @@ input CreateManyLessonsInput {
 input CreateOneBaseDTOInput {
   """The record to create"""
   baseDTO: CreateBaseDTO!
+}
+
+input CreateOneDiciplineInput {
+  """The record to create"""
+  dicipline: CreateDiciplineDTO!
 }
 
 input CreateOneLessonInput {
@@ -167,6 +181,11 @@ input DeleteManyBaseDTOSInput {
   filter: BaseDTODeleteFilter!
 }
 
+input DeleteManyDiciplinesInput {
+  """Filter to find records to delete"""
+  filter: diciplineDeleteFilter!
+}
+
 input DeleteManyLessonsInput {
   """Filter to find records to delete"""
   filter: lessonDeleteFilter!
@@ -182,9 +201,32 @@ input DeleteOneBaseDTOInput {
   id: ID!
 }
 
+input DeleteOneDiciplineInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
 input DeleteOneLessonInput {
   """The id of the record to delete."""
   id: ID!
+}
+
+type DiciplineConnection {
+  """Array of nodes."""
+  nodes: [dicipline!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type DiciplineDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  name: String
+  updateAt: DateTime
 }
 
 type LessonConnection {
@@ -207,16 +249,22 @@ type LessonDeleteResponse {
 
 type Mutation {
   createManyBaseDTOS(input: CreateManyBaseDTOSInput!): [BaseDTO!]!
+  createManyDiciplines(input: CreateManyDiciplinesInput!): [dicipline!]!
   createManyLessons(input: CreateManyLessonsInput!): [lesson!]!
   createOneBaseDTO(input: CreateOneBaseDTOInput!): BaseDTO!
+  createOneDicipline(input: CreateOneDiciplineInput!): dicipline!
   createOneLesson(input: CreateOneLessonInput!): lesson!
   deleteManyBaseDTOS(input: DeleteManyBaseDTOSInput!): DeleteManyResponse!
+  deleteManyDiciplines(input: DeleteManyDiciplinesInput!): DeleteManyResponse!
   deleteManyLessons(input: DeleteManyLessonsInput!): DeleteManyResponse!
   deleteOneBaseDTO(input: DeleteOneBaseDTOInput!): BaseDTODeleteResponse!
+  deleteOneDicipline(input: DeleteOneDiciplineInput!): DiciplineDeleteResponse!
   deleteOneLesson(input: DeleteOneLessonInput!): LessonDeleteResponse!
   updateManyBaseDTOS(input: UpdateManyBaseDTOSInput!): UpdateManyResponse!
+  updateManyDiciplines(input: UpdateManyDiciplinesInput!): UpdateManyResponse!
   updateManyLessons(input: UpdateManyLessonsInput!): UpdateManyResponse!
   updateOneBaseDTO(input: UpdateOneBaseDTOInput!): BaseDTO!
+  updateOneDicipline(input: UpdateOneDiciplineInput!): dicipline!
   updateOneLesson(input: UpdateOneLessonInput!): lesson!
 }
 
@@ -265,6 +313,20 @@ type Query {
     """Specify to sort results."""
     sorting: [BaseDTOSort!]! = []
   ): BaseDTOConnection!
+  dicipline(
+    """The id of the record to find."""
+    id: ID!
+  ): dicipline
+  diciplines(
+    """Specify to filter the records returned."""
+    filter: diciplineFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [diciplineSort!]! = []
+  ): DiciplineConnection!
   lesson(
     """The id of the record to find."""
     id: ID!
@@ -316,6 +378,13 @@ input UpdateBaseDTO {
   updateAt: DateTime
 }
 
+input UpdateDicipline {
+  createdAt: DateTime
+  deletedAt: DateTime
+  name: String
+  updateAt: DateTime
+}
+
 input UpdateLesson {
   createdAt: DateTime
   deletedAt: DateTime
@@ -329,6 +398,14 @@ input UpdateManyBaseDTOSInput {
 
   """The update to apply to all records found using the filter"""
   update: UpdateBaseDTO!
+}
+
+input UpdateManyDiciplinesInput {
+  """Filter used to find fields to update"""
+  filter: diciplineUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateDicipline!
 }
 
 input UpdateManyLessonsInput {
@@ -352,12 +429,95 @@ input UpdateOneBaseDTOInput {
   update: UpdateBaseDTO!
 }
 
+input UpdateOneDiciplineInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateDicipline!
+}
+
 input UpdateOneLessonInput {
   """The id of the record to update"""
   id: ID!
 
   """The update to apply."""
   update: UpdateLesson!
+}
+
+type dicipline {
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  name: String!
+  updateAt: DateTime!
+}
+
+type diciplineAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  name: String
+  updateAt: DateTime
+}
+
+type diciplineCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  name: Int
+  updateAt: Int
+}
+
+input diciplineDeleteFilter {
+  and: [diciplineDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  name: StringFieldComparison
+  or: [diciplineDeleteFilter!]
+  updateAt: DateFieldComparison
+}
+
+input diciplineFilter {
+  and: [diciplineFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  name: StringFieldComparison
+  or: [diciplineFilter!]
+  updateAt: DateFieldComparison
+}
+
+type diciplineMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  name: String
+  updateAt: DateTime
+}
+
+type diciplineMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  name: String
+  updateAt: DateTime
+}
+
+input diciplineSort {
+  direction: SortDirection!
+  field: diciplineSortFields!
+  nulls: SortNulls
+}
+
+enum diciplineSortFields {
+  createdAt
+  deletedAt
+  name
+  updateAt
+}
+
+input diciplineUpdateFilter {
+  and: [diciplineUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  name: StringFieldComparison
+  or: [diciplineUpdateFilter!]
+  updateAt: DateFieldComparison
 }
 
 type lesson {

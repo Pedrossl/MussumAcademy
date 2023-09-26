@@ -9,6 +9,7 @@ import { LessonModule } from './modules/lesson/lesson.module';
 import { BaseModule } from './modules/base/base.module';
 import { Lesson } from './modules/lesson/entities/lesson.entity';
 import { DiciplinesModule } from './modules/diciplines/diciplines.module';
+import { Dicipline } from './modules/diciplines/entities/dicipline.entity';
 
 
 @Module({
@@ -25,7 +26,7 @@ import { DiciplinesModule } from './modules/diciplines/diciplines.module';
       username: 'postgres',
       password: 'docker',
       database: 'postgres',
-      entities: [Lesson],
+      entities: [Lesson, Dicipline],
       synchronize: true,
     }),
     LessonModule,
