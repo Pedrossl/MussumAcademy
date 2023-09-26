@@ -6,6 +6,6 @@ export class Content extends Base {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true})
   linkContent: string;
 }

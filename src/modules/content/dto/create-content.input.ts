@@ -5,6 +5,6 @@ export class CreateContentDTO {
   @Field()
   description: string;
   
-  @Field()
+  @Field({ nullable: true})
   linkContent?: string;
 }
