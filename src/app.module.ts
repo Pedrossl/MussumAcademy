@@ -12,6 +12,8 @@ import { DiciplinesModule } from './modules/diciplines/diciplines.module';
 import { Dicipline } from './modules/diciplines/entities/dicipline.entity';
 import { Content } from './modules/content/entities/content.entity';
 import { ContentsModule } from './modules/content/content.module';
+import { StudentsModule } from './modules/students/students.module';
+import { Student } from './modules/students/entities/student.entity';
 
 
 @Module({
@@ -28,13 +30,14 @@ import { ContentsModule } from './modules/content/content.module';
       username: 'postgres',
       password: 'docker',
       database: 'postgres',
-      entities: [Lesson, Dicipline, Content],
+      entities: [Lesson, Dicipline, Content,Student],
       synchronize: true,
     }),
     LessonModule,
     BaseModule,
     DiciplinesModule,
     ContentsModule,
+    StudentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
