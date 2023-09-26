@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LessonModule } from './modules/lesson/lesson.module';
 import { BaseModule } from './modules/base/base.module';
 import { Lesson } from './modules/lesson/entities/lesson.entity';
+import { DiciplinesModule } from './modules/diciplines/diciplines.module';
 
 
 @Module({
@@ -29,6 +30,7 @@ import { Lesson } from './modules/lesson/entities/lesson.entity';
     }),
     LessonModule,
     BaseModule,
+    DiciplinesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
