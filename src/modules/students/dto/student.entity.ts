@@ -9,4 +9,5 @@ export class StudentDTO extends BaseDTO {
   
     @FilterableField()
     key: string;
+
   }
