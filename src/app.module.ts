@@ -10,7 +10,8 @@ import { BaseModule } from './modules/base/base.module';
 import { Lesson } from './modules/lesson/entities/lesson.entity';
 import { DiciplinesModule } from './modules/diciplines/diciplines.module';
 import { Dicipline } from './modules/diciplines/entities/dicipline.entity';
-import { ContentModule } from './modules/content/content.module';
+import { Content } from './modules/content/entities/content.entity';
+import { ContentsModule } from './modules/content/content.module';
 
 
 @Module({
@@ -27,13 +28,13 @@ import { ContentModule } from './modules/content/content.module';
       username: 'postgres',
       password: 'docker',
       database: 'postgres',
-      entities: [Lesson, Dicipline],
+      entities: [Lesson, Dicipline, Content],
       synchronize: true,
     }),
     LessonModule,
     BaseModule,
     DiciplinesModule,
-    ContentModule,
+    ContentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
