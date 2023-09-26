@@ -235,6 +235,11 @@ input CreateManyLessonsInput {
   lessons: [CreateLessonDTO!]!
 }
 
+input CreateManyStudentsInput {
+  """Array of records to create"""
+  students: [CreateStudentDTO!]!
+}
+
 input CreateOneBaseDTOInput {
   """The record to create"""
   baseDTO: CreateBaseDTO!
@@ -253,6 +258,16 @@ input CreateOneDiciplineInput {
 input CreateOneLessonInput {
   """The record to create"""
   lesson: CreateLessonDTO!
+}
+
+input CreateOneStudentInput {
+  """The record to create"""
+  student: CreateStudentDTO!
+}
+
+input CreateStudentDTO {
+  key: String!
+  name: String!
 }
 
 input CursorPaging {
@@ -319,6 +334,11 @@ type DeleteManyResponse {
   deletedCount: Int!
 }
 
+input DeleteManyStudentsInput {
+  """Filter to find records to delete"""
+  filter: StudentDeleteFilter!
+}
+
 input DeleteOneBaseDTOInput {
   """The id of the record to delete."""
   id: ID!
@@ -335,6 +355,11 @@ input DeleteOneDiciplineInput {
 }
 
 input DeleteOneLessonInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneStudentInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -380,26 +405,32 @@ type Mutation {
   createManyContents(input: CreateManyContentsInput!): [Content!]!
   createManyDiciplines(input: CreateManyDiciplinesInput!): [dicipline!]!
   createManyLessons(input: CreateManyLessonsInput!): [lesson!]!
+  createManyStudents(input: CreateManyStudentsInput!): [Student!]!
   createOneBaseDTO(input: CreateOneBaseDTOInput!): BaseDTO!
   createOneContent(input: CreateOneContentInput!): Content!
   createOneDicipline(input: CreateOneDiciplineInput!): dicipline!
   createOneLesson(input: CreateOneLessonInput!): lesson!
+  createOneStudent(input: CreateOneStudentInput!): Student!
   deleteManyBaseDTOS(input: DeleteManyBaseDTOSInput!): DeleteManyResponse!
   deleteManyContents(input: DeleteManyContentsInput!): DeleteManyResponse!
   deleteManyDiciplines(input: DeleteManyDiciplinesInput!): DeleteManyResponse!
   deleteManyLessons(input: DeleteManyLessonsInput!): DeleteManyResponse!
+  deleteManyStudents(input: DeleteManyStudentsInput!): DeleteManyResponse!
   deleteOneBaseDTO(input: DeleteOneBaseDTOInput!): BaseDTODeleteResponse!
   deleteOneContent(input: DeleteOneContentInput!): ContentDeleteResponse!
   deleteOneDicipline(input: DeleteOneDiciplineInput!): DiciplineDeleteResponse!
   deleteOneLesson(input: DeleteOneLessonInput!): LessonDeleteResponse!
+  deleteOneStudent(input: DeleteOneStudentInput!): StudentDeleteResponse!
   updateManyBaseDTOS(input: UpdateManyBaseDTOSInput!): UpdateManyResponse!
   updateManyContents(input: UpdateManyContentsInput!): UpdateManyResponse!
   updateManyDiciplines(input: UpdateManyDiciplinesInput!): UpdateManyResponse!
   updateManyLessons(input: UpdateManyLessonsInput!): UpdateManyResponse!
+  updateManyStudents(input: UpdateManyStudentsInput!): UpdateManyResponse!
   updateOneBaseDTO(input: UpdateOneBaseDTOInput!): BaseDTO!
   updateOneContent(input: UpdateOneContentInput!): Content!
   updateOneDicipline(input: UpdateOneDiciplineInput!): dicipline!
   updateOneLesson(input: UpdateOneLessonInput!): lesson!
+  updateOneStudent(input: UpdateOneStudentInput!): Student!
 }
 
 type OffsetPageInfo {
@@ -489,6 +520,20 @@ type Query {
     """Specify to sort results."""
     sorting: [lessonSort!]! = []
   ): LessonConnection!
+  student(
+    """The id of the record to find."""
+    id: ID!
+  ): Student
+  students(
+    """Specify to filter the records returned."""
+    filter: StudentFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [StudentSort!]! = []
+  ): StudentConnection!
 }
 
 """Sort Directions"""
@@ -518,6 +563,109 @@ input StringFieldComparison {
   notILike: String
   notIn: [String!]
   notLike: String
+}
+
+type Student {
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  key: String!
+  name: String!
+  updateAt: DateTime!
+}
+
+type StudentAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  key: String
+  name: String
+  updateAt: DateTime
+}
+
+type StudentConnection {
+  """Array of nodes."""
+  nodes: [Student!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type StudentCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  key: Int
+  name: Int
+  updateAt: Int
+}
+
+input StudentDeleteFilter {
+  and: [StudentDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  key: StringFieldComparison
+  name: StringFieldComparison
+  or: [StudentDeleteFilter!]
+  updateAt: DateFieldComparison
+}
+
+type StudentDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  key: String
+  name: String
+  updateAt: DateTime
+}
+
+input StudentFilter {
+  and: [StudentFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  key: StringFieldComparison
+  name: StringFieldComparison
+  or: [StudentFilter!]
+  updateAt: DateFieldComparison
+}
+
+type StudentMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  key: String
+  name: String
+  updateAt: DateTime
+}
+
+type StudentMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  key: String
+  name: String
+  updateAt: DateTime
+}
+
+input StudentSort {
+  direction: SortDirection!
+  field: StudentSortFields!
+  nulls: SortNulls
+}
+
+enum StudentSortFields {
+  createdAt
+  deletedAt
+  key
+  name
+  updateAt
+}
+
+input StudentUpdateFilter {
+  and: [StudentUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  key: StringFieldComparison
+  name: StringFieldComparison
+  or: [StudentUpdateFilter!]
+  updateAt: DateFieldComparison
 }
 
 input UpdateBaseDTO {
@@ -583,6 +731,14 @@ type UpdateManyResponse {
   updatedCount: Int!
 }
 
+input UpdateManyStudentsInput {
+  """Filter used to find fields to update"""
+  filter: StudentUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateStudentDTO!
+}
+
 input UpdateOneBaseDTOInput {
   """The id of the record to update"""
   id: ID!
@@ -613,6 +769,20 @@ input UpdateOneLessonInput {
 
   """The update to apply."""
   update: UpdateLesson!
+}
+
+input UpdateOneStudentInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateStudentDTO!
+}
+
+input UpdateStudentDTO {
+  id: Int!
+  key: String
+  name: String
 }
 
 type dicipline {
