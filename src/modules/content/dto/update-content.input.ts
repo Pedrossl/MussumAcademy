@@ -1,8 +1,8 @@
 import { CreateContentDTO } from './create-content.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateContentDTO extends PartialType(CreateContentDTO) {
-  @Field(() => Int)
-  id: number;
+  @Field(() => ID)
+  id?: string;
 }

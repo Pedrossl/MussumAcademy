@@ -2,15 +2,49 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AddContentsToLessonInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddDiciplinesToLessonInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddDisciplinesToStudentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddStudentsToDiciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 type BaseDTO {
   createdAt: DateTime!
   deletedAt: DateTime!
+  id: String!
   updateAt: DateTime!
 }
 
 type BaseDTOAggregateGroupBy {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   updateAt: DateTime
 }
 
@@ -25,6 +59,7 @@ type BaseDTOConnection {
 type BaseDTOCountAggregate {
   createdAt: Int
   deletedAt: Int
+  id: Int
   updateAt: Int
 }
 
@@ -32,6 +67,7 @@ input BaseDTODeleteFilter {
   and: [BaseDTODeleteFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  id: StringFieldComparison
   or: [BaseDTODeleteFilter!]
   updateAt: DateFieldComparison
 }
@@ -39,6 +75,7 @@ input BaseDTODeleteFilter {
 type BaseDTODeleteResponse {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   updateAt: DateTime
 }
 
@@ -54,6 +91,7 @@ input BaseDTOFilter {
   and: [BaseDTOFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  id: StringFieldComparison
   or: [BaseDTOFilter!]
   updateAt: DateFieldComparison
 }
@@ -61,12 +99,14 @@ input BaseDTOFilter {
 type BaseDTOMaxAggregate {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   updateAt: DateTime
 }
 
 type BaseDTOMinAggregate {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   updateAt: DateTime
 }
 
@@ -79,6 +119,7 @@ input BaseDTOSort {
 enum BaseDTOSortFields {
   createdAt
   deletedAt
+  id
   updateAt
 }
 
@@ -86,6 +127,7 @@ input BaseDTOUpdateFilter {
   and: [BaseDTOUpdateFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  id: StringFieldComparison
   or: [BaseDTOUpdateFilter!]
   updateAt: DateFieldComparison
 }
@@ -97,6 +139,8 @@ type Content {
   createdAt: DateTime!
   deletedAt: DateTime!
   description: String!
+  id: String!
+  lesson: lesson!
   linkContent: String
   updateAt: DateTime!
 }
@@ -105,6 +149,7 @@ type ContentAggregateGroupBy {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   linkContent: String
   updateAt: DateTime
 }
@@ -124,6 +169,7 @@ type ContentCountAggregate {
   createdAt: Int
   deletedAt: Int
   description: Int
+  id: Int
   linkContent: Int
   updateAt: Int
 }
@@ -133,6 +179,7 @@ input ContentDeleteFilter {
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
+  id: StringFieldComparison
   linkContent: StringFieldComparison
   or: [ContentDeleteFilter!]
   updateAt: DateFieldComparison
@@ -142,6 +189,7 @@ type ContentDeleteResponse {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   linkContent: String
   updateAt: DateTime
 }
@@ -151,8 +199,20 @@ input ContentFilter {
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
+  id: StringFieldComparison
+  lesson: ContentFilterlessonFilter
   linkContent: StringFieldComparison
   or: [ContentFilter!]
+  updateAt: DateFieldComparison
+}
+
+input ContentFilterlessonFilter {
+  and: [ContentFilterlessonFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  or: [ContentFilterlessonFilter!]
   updateAt: DateFieldComparison
 }
 
@@ -160,6 +220,7 @@ type ContentMaxAggregate {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   linkContent: String
   updateAt: DateTime
 }
@@ -168,6 +229,7 @@ type ContentMinAggregate {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   linkContent: String
   updateAt: DateTime
 }
@@ -182,6 +244,7 @@ enum ContentSortFields {
   createdAt
   deletedAt
   description
+  id
   linkContent
   updateAt
 }
@@ -191,6 +254,7 @@ input ContentUpdateFilter {
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
+  id: StringFieldComparison
   linkContent: StringFieldComparison
   or: [ContentUpdateFilter!]
   updateAt: DateFieldComparison
@@ -199,11 +263,13 @@ input ContentUpdateFilter {
 input CreateBaseDTO {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   updateAt: DateTime
 }
 
 input CreateContentDTO {
   description: String!
+  lessonId: String
   linkContent: String
 }
 
@@ -213,6 +279,7 @@ input CreateDiciplineDTO {
 
 input CreateLessonDTO {
   description: String!
+  diciplineId: String
 }
 
 input CreateManyBaseDTOSInput {
@@ -378,8 +445,20 @@ type DiciplineConnection {
 type DiciplineDeleteResponse {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   name: String
   updateAt: DateTime
+}
+
+type DiciplineStudentsConnection {
+  """Array of nodes."""
+  nodes: [Student!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 type LessonConnection {
@@ -393,14 +472,41 @@ type LessonConnection {
   totalCount: Int!
 }
 
+type LessonContentsConnection {
+  """Array of nodes."""
+  nodes: [Content!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
 type LessonDeleteResponse {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   updateAt: DateTime
 }
 
+type LessonDiciplinesConnection {
+  """Array of nodes."""
+  nodes: [dicipline!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
 type Mutation {
+  addContentsToLesson(input: AddContentsToLessonInput!): lesson!
+  addDiciplinesToLesson(input: AddDiciplinesToLessonInput!): lesson!
+  addDisciplinesToStudent(input: AddDisciplinesToStudentInput!): Student!
+  addStudentsToDicipline(input: AddStudentsToDiciplineInput!): dicipline!
   createManyBaseDTOS(input: CreateManyBaseDTOSInput!): [BaseDTO!]!
   createManyContents(input: CreateManyContentsInput!): [Content!]!
   createManyDiciplines(input: CreateManyDiciplinesInput!): [dicipline!]!
@@ -421,6 +527,16 @@ type Mutation {
   deleteOneDicipline(input: DeleteOneDiciplineInput!): DiciplineDeleteResponse!
   deleteOneLesson(input: DeleteOneLessonInput!): LessonDeleteResponse!
   deleteOneStudent(input: DeleteOneStudentInput!): StudentDeleteResponse!
+  removeContentsFromLesson(input: RemoveContentsFromLessonInput!): lesson!
+  removeDiciplinesFromLesson(input: RemoveDiciplinesFromLessonInput!): lesson!
+  removeDisciplinesFromStudent(input: RemoveDisciplinesFromStudentInput!): Student!
+  removeLessonFromContent(input: RemoveLessonFromContentInput!): Content!
+  removeStudentsFromDicipline(input: RemoveStudentsFromDiciplineInput!): dicipline!
+  setContentsOnLesson(input: SetContentsOnLessonInput!): lesson!
+  setDiciplinesOnLesson(input: SetDiciplinesOnLessonInput!): lesson!
+  setDisciplinesOnStudent(input: SetDisciplinesOnStudentInput!): Student!
+  setLessonOnContent(input: SetLessonOnContentInput!): Content!
+  setStudentsOnDicipline(input: SetStudentsOnDiciplineInput!): dicipline!
   updateManyBaseDTOS(input: UpdateManyBaseDTOSInput!): UpdateManyResponse!
   updateManyContents(input: UpdateManyContentsInput!): UpdateManyResponse!
   updateManyDiciplines(input: UpdateManyDiciplinesInput!): UpdateManyResponse!
@@ -536,6 +652,86 @@ type Query {
   ): StudentConnection!
 }
 
+input RemoveContentsFromLessonInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveDiciplinesFromLessonInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveDisciplinesFromStudentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveLessonFromContentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveStudentsFromDiciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetContentsOnLessonInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetDiciplinesOnLessonInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetDisciplinesOnStudentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetLessonOnContentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetStudentsOnDiciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 """Sort Directions"""
 enum SortDirection {
   ASC
@@ -568,6 +764,17 @@ input StringFieldComparison {
 type Student {
   createdAt: DateTime!
   deletedAt: DateTime!
+  disciplines(
+    """Specify to filter the records returned."""
+    filter: diciplineFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [diciplineSort!]! = []
+  ): StudentDisciplinesConnection
+  id: String!
   key: String!
   name: String!
   updateAt: DateTime!
@@ -576,6 +783,7 @@ type Student {
 type StudentAggregateGroupBy {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   key: String
   name: String
   updateAt: DateTime
@@ -595,6 +803,7 @@ type StudentConnection {
 type StudentCountAggregate {
   createdAt: Int
   deletedAt: Int
+  id: Int
   key: Int
   name: Int
   updateAt: Int
@@ -604,6 +813,7 @@ input StudentDeleteFilter {
   and: [StudentDeleteFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  id: StringFieldComparison
   key: StringFieldComparison
   name: StringFieldComparison
   or: [StudentDeleteFilter!]
@@ -613,24 +823,49 @@ input StudentDeleteFilter {
 type StudentDeleteResponse {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   key: String
   name: String
   updateAt: DateTime
+}
+
+type StudentDisciplinesConnection {
+  """Array of nodes."""
+  nodes: [dicipline!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 input StudentFilter {
   and: [StudentFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  disciplines: StudentFilterdiciplineFilter
+  id: StringFieldComparison
   key: StringFieldComparison
   name: StringFieldComparison
   or: [StudentFilter!]
   updateAt: DateFieldComparison
 }
 
+input StudentFilterdiciplineFilter {
+  and: [StudentFilterdiciplineFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [StudentFilterdiciplineFilter!]
+  updateAt: DateFieldComparison
+}
+
 type StudentMaxAggregate {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   key: String
   name: String
   updateAt: DateTime
@@ -639,6 +874,7 @@ type StudentMaxAggregate {
 type StudentMinAggregate {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   key: String
   name: String
   updateAt: DateTime
@@ -653,6 +889,7 @@ input StudentSort {
 enum StudentSortFields {
   createdAt
   deletedAt
+  id
   key
   name
   updateAt
@@ -662,6 +899,7 @@ input StudentUpdateFilter {
   and: [StudentUpdateFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  id: StringFieldComparison
   key: StringFieldComparison
   name: StringFieldComparison
   or: [StudentUpdateFilter!]
@@ -671,18 +909,21 @@ input StudentUpdateFilter {
 input UpdateBaseDTO {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   updateAt: DateTime
 }
 
 input UpdateContentDTO {
   description: String
-  id: Int!
+  id: ID!
+  lessonId: String
   linkContent: String
 }
 
 input UpdateDicipline {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   name: String
   updateAt: DateTime
 }
@@ -691,6 +932,7 @@ input UpdateLesson {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   updateAt: DateTime
 }
 
@@ -788,13 +1030,25 @@ input UpdateStudentDTO {
 type dicipline {
   createdAt: DateTime!
   deletedAt: DateTime!
+  id: String!
   name: String!
+  students(
+    """Specify to filter the records returned."""
+    filter: StudentFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [StudentSort!]! = []
+  ): DiciplineStudentsConnection
   updateAt: DateTime!
 }
 
 type diciplineAggregateGroupBy {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   name: String
   updateAt: DateTime
 }
@@ -802,6 +1056,7 @@ type diciplineAggregateGroupBy {
 type diciplineCountAggregate {
   createdAt: Int
   deletedAt: Int
+  id: Int
   name: Int
   updateAt: Int
 }
@@ -810,6 +1065,7 @@ input diciplineDeleteFilter {
   and: [diciplineDeleteFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  id: StringFieldComparison
   name: StringFieldComparison
   or: [diciplineDeleteFilter!]
   updateAt: DateFieldComparison
@@ -819,14 +1075,28 @@ input diciplineFilter {
   and: [diciplineFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  id: StringFieldComparison
   name: StringFieldComparison
   or: [diciplineFilter!]
+  students: diciplineFilterStudentFilter
+  updateAt: DateFieldComparison
+}
+
+input diciplineFilterStudentFilter {
+  and: [diciplineFilterStudentFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  key: StringFieldComparison
+  name: StringFieldComparison
+  or: [diciplineFilterStudentFilter!]
   updateAt: DateFieldComparison
 }
 
 type diciplineMaxAggregate {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   name: String
   updateAt: DateTime
 }
@@ -834,6 +1104,7 @@ type diciplineMaxAggregate {
 type diciplineMinAggregate {
   createdAt: DateTime
   deletedAt: DateTime
+  id: String
   name: String
   updateAt: DateTime
 }
@@ -847,6 +1118,7 @@ input diciplineSort {
 enum diciplineSortFields {
   createdAt
   deletedAt
+  id
   name
   updateAt
 }
@@ -855,15 +1127,37 @@ input diciplineUpdateFilter {
   and: [diciplineUpdateFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  id: StringFieldComparison
   name: StringFieldComparison
   or: [diciplineUpdateFilter!]
   updateAt: DateFieldComparison
 }
 
 type lesson {
+  contents(
+    """Specify to filter the records returned."""
+    filter: ContentFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [ContentSort!]! = []
+  ): LessonContentsConnection
   createdAt: DateTime!
   deletedAt: DateTime!
   description: String!
+  diciplines(
+    """Specify to filter the records returned."""
+    filter: diciplineFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [diciplineSort!]! = []
+  ): LessonDiciplinesConnection
+  id: String!
   updateAt: DateTime!
 }
 
@@ -871,6 +1165,7 @@ type lessonAggregateGroupBy {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   updateAt: DateTime
 }
 
@@ -878,6 +1173,7 @@ type lessonCountAggregate {
   createdAt: Int
   deletedAt: Int
   description: Int
+  id: Int
   updateAt: Int
 }
 
@@ -886,16 +1182,41 @@ input lessonDeleteFilter {
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
+  id: StringFieldComparison
   or: [lessonDeleteFilter!]
   updateAt: DateFieldComparison
 }
 
 input lessonFilter {
   and: [lessonFilter!]
+  contents: lessonFilterContentFilter
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
+  dicipline: lessonFilterdiciplineFilter
+  id: StringFieldComparison
   or: [lessonFilter!]
+  updateAt: DateFieldComparison
+}
+
+input lessonFilterContentFilter {
+  and: [lessonFilterContentFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  linkContent: StringFieldComparison
+  or: [lessonFilterContentFilter!]
+  updateAt: DateFieldComparison
+}
+
+input lessonFilterdiciplineFilter {
+  and: [lessonFilterdiciplineFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [lessonFilterdiciplineFilter!]
   updateAt: DateFieldComparison
 }
 
@@ -903,6 +1224,7 @@ type lessonMaxAggregate {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   updateAt: DateTime
 }
 
@@ -910,6 +1232,7 @@ type lessonMinAggregate {
   createdAt: DateTime
   deletedAt: DateTime
   description: String
+  id: String
   updateAt: DateTime
 }
 
@@ -923,6 +1246,7 @@ enum lessonSortFields {
   createdAt
   deletedAt
   description
+  id
   updateAt
 }
 
@@ -931,6 +1255,7 @@ input lessonUpdateFilter {
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
+  id: StringFieldComparison
   or: [lessonUpdateFilter!]
   updateAt: DateFieldComparison
 }

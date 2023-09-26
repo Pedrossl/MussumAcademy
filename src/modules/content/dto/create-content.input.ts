@@ -7,4 +7,8 @@ export class CreateContentDTO {
   
   @Field({ nullable: true})
   linkContent?: string;
+
+  @Field({ nullable: true})
+  lessonId?: string;
+  
 }
