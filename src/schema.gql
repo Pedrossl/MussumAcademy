@@ -93,10 +93,118 @@ input BaseDTOUpdateFilter {
 """Cursor for paging through collections"""
 scalar ConnectionCursor
 
+type Content {
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  description: String!
+  linkContent: String
+  updateAt: DateTime!
+}
+
+type ContentAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  linkContent: String
+  updateAt: DateTime
+}
+
+type ContentConnection {
+  """Array of nodes."""
+  nodes: [Content!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type ContentCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  description: Int
+  linkContent: Int
+  updateAt: Int
+}
+
+input ContentDeleteFilter {
+  and: [ContentDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  linkContent: StringFieldComparison
+  or: [ContentDeleteFilter!]
+  updateAt: DateFieldComparison
+}
+
+type ContentDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  linkContent: String
+  updateAt: DateTime
+}
+
+input ContentFilter {
+  and: [ContentFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  linkContent: StringFieldComparison
+  or: [ContentFilter!]
+  updateAt: DateFieldComparison
+}
+
+type ContentMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  linkContent: String
+  updateAt: DateTime
+}
+
+type ContentMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  linkContent: String
+  updateAt: DateTime
+}
+
+input ContentSort {
+  direction: SortDirection!
+  field: ContentSortFields!
+  nulls: SortNulls
+}
+
+enum ContentSortFields {
+  createdAt
+  deletedAt
+  description
+  linkContent
+  updateAt
+}
+
+input ContentUpdateFilter {
+  and: [ContentUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  linkContent: StringFieldComparison
+  or: [ContentUpdateFilter!]
+  updateAt: DateFieldComparison
+}
+
 input CreateBaseDTO {
   createdAt: DateTime
   deletedAt: DateTime
   updateAt: DateTime
+}
+
+input CreateContentDTO {
+  description: String!
+  linkContent: String
 }
 
 input CreateDiciplineDTO {
@@ -112,6 +220,11 @@ input CreateManyBaseDTOSInput {
   baseDTOS: [CreateBaseDTO!]!
 }
 
+input CreateManyContentsInput {
+  """Array of records to create"""
+  contents: [CreateContentDTO!]!
+}
+
 input CreateManyDiciplinesInput {
   """Array of records to create"""
   diciplines: [CreateDiciplineDTO!]!
@@ -125,6 +238,11 @@ input CreateManyLessonsInput {
 input CreateOneBaseDTOInput {
   """The record to create"""
   baseDTO: CreateBaseDTO!
+}
+
+input CreateOneContentInput {
+  """The record to create"""
+  content: CreateContentDTO!
 }
 
 input CreateOneDiciplineInput {
@@ -181,6 +299,11 @@ input DeleteManyBaseDTOSInput {
   filter: BaseDTODeleteFilter!
 }
 
+input DeleteManyContentsInput {
+  """Filter to find records to delete"""
+  filter: ContentDeleteFilter!
+}
+
 input DeleteManyDiciplinesInput {
   """Filter to find records to delete"""
   filter: diciplineDeleteFilter!
@@ -197,6 +320,11 @@ type DeleteManyResponse {
 }
 
 input DeleteOneBaseDTOInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneContentInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -249,21 +377,27 @@ type LessonDeleteResponse {
 
 type Mutation {
   createManyBaseDTOS(input: CreateManyBaseDTOSInput!): [BaseDTO!]!
+  createManyContents(input: CreateManyContentsInput!): [Content!]!
   createManyDiciplines(input: CreateManyDiciplinesInput!): [dicipline!]!
   createManyLessons(input: CreateManyLessonsInput!): [lesson!]!
   createOneBaseDTO(input: CreateOneBaseDTOInput!): BaseDTO!
+  createOneContent(input: CreateOneContentInput!): Content!
   createOneDicipline(input: CreateOneDiciplineInput!): dicipline!
   createOneLesson(input: CreateOneLessonInput!): lesson!
   deleteManyBaseDTOS(input: DeleteManyBaseDTOSInput!): DeleteManyResponse!
+  deleteManyContents(input: DeleteManyContentsInput!): DeleteManyResponse!
   deleteManyDiciplines(input: DeleteManyDiciplinesInput!): DeleteManyResponse!
   deleteManyLessons(input: DeleteManyLessonsInput!): DeleteManyResponse!
   deleteOneBaseDTO(input: DeleteOneBaseDTOInput!): BaseDTODeleteResponse!
+  deleteOneContent(input: DeleteOneContentInput!): ContentDeleteResponse!
   deleteOneDicipline(input: DeleteOneDiciplineInput!): DiciplineDeleteResponse!
   deleteOneLesson(input: DeleteOneLessonInput!): LessonDeleteResponse!
   updateManyBaseDTOS(input: UpdateManyBaseDTOSInput!): UpdateManyResponse!
+  updateManyContents(input: UpdateManyContentsInput!): UpdateManyResponse!
   updateManyDiciplines(input: UpdateManyDiciplinesInput!): UpdateManyResponse!
   updateManyLessons(input: UpdateManyLessonsInput!): UpdateManyResponse!
   updateOneBaseDTO(input: UpdateOneBaseDTOInput!): BaseDTO!
+  updateOneContent(input: UpdateOneContentInput!): Content!
   updateOneDicipline(input: UpdateOneDiciplineInput!): dicipline!
   updateOneLesson(input: UpdateOneLessonInput!): lesson!
 }
@@ -313,6 +447,20 @@ type Query {
     """Specify to sort results."""
     sorting: [BaseDTOSort!]! = []
   ): BaseDTOConnection!
+  content(
+    """The id of the record to find."""
+    id: ID!
+  ): Content
+  contents(
+    """Specify to filter the records returned."""
+    filter: ContentFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [ContentSort!]! = []
+  ): ContentConnection!
   dicipline(
     """The id of the record to find."""
     id: ID!
@@ -378,6 +526,12 @@ input UpdateBaseDTO {
   updateAt: DateTime
 }
 
+input UpdateContentDTO {
+  description: String
+  id: Int!
+  linkContent: String
+}
+
 input UpdateDicipline {
   createdAt: DateTime
   deletedAt: DateTime
@@ -398,6 +552,14 @@ input UpdateManyBaseDTOSInput {
 
   """The update to apply to all records found using the filter"""
   update: UpdateBaseDTO!
+}
+
+input UpdateManyContentsInput {
+  """Filter used to find fields to update"""
+  filter: ContentUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateContentDTO!
 }
 
 input UpdateManyDiciplinesInput {
@@ -427,6 +589,14 @@ input UpdateOneBaseDTOInput {
 
   """The update to apply."""
   update: UpdateBaseDTO!
+}
+
+input UpdateOneContentInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateContentDTO!
 }
 
 input UpdateOneDiciplineInput {
