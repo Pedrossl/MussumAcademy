@@ -4,4 +4,7 @@ import { InputType, Field } from '@nestjs/graphql';
 export class CreateDiciplineDTO {
   @Field()
   name: string;
+
+  @Field({nullable: true})
+  lessonId?: string;
 }

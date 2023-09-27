@@ -1,3 +1,4 @@
+import { Delete } from '@nestjs/common';
 import { Base } from 'src/modules/base/entities/base.entity';
 import { Lesson } from 'src/modules/lesson/entities/lesson.entity';
 import { Student } from 'src/modules/students/entities/student.entity';

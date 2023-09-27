@@ -26,6 +26,14 @@ input AddDisciplinesToStudentInput {
   relationIds: [ID!]!
 }
 
+input AddLessonsToDiciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input AddStudentsToDiciplineInput {
   """The id of the record."""
   id: ID!
@@ -274,6 +282,7 @@ input CreateContentDTO {
 }
 
 input CreateDiciplineDTO {
+  lessonId: String
   name: String!
 }
 
@@ -450,6 +459,17 @@ type DiciplineDeleteResponse {
   updateAt: DateTime
 }
 
+type DiciplineLessonsConnection {
+  """Array of nodes."""
+  nodes: [lesson!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
 type DiciplineStudentsConnection {
   """Array of nodes."""
   nodes: [Student!]!
@@ -506,6 +526,7 @@ type Mutation {
   addContentsToLesson(input: AddContentsToLessonInput!): lesson!
   addDiciplinesToLesson(input: AddDiciplinesToLessonInput!): lesson!
   addDisciplinesToStudent(input: AddDisciplinesToStudentInput!): Student!
+  addLessonsToDicipline(input: AddLessonsToDiciplineInput!): dicipline!
   addStudentsToDicipline(input: AddStudentsToDiciplineInput!): dicipline!
   createManyBaseDTOS(input: CreateManyBaseDTOSInput!): [BaseDTO!]!
   createManyContents(input: CreateManyContentsInput!): [Content!]!
@@ -531,11 +552,13 @@ type Mutation {
   removeDiciplinesFromLesson(input: RemoveDiciplinesFromLessonInput!): lesson!
   removeDisciplinesFromStudent(input: RemoveDisciplinesFromStudentInput!): Student!
   removeLessonFromContent(input: RemoveLessonFromContentInput!): Content!
+  removeLessonsFromDicipline(input: RemoveLessonsFromDiciplineInput!): dicipline!
   removeStudentsFromDicipline(input: RemoveStudentsFromDiciplineInput!): dicipline!
   setContentsOnLesson(input: SetContentsOnLessonInput!): lesson!
   setDiciplinesOnLesson(input: SetDiciplinesOnLessonInput!): lesson!
   setDisciplinesOnStudent(input: SetDisciplinesOnStudentInput!): Student!
   setLessonOnContent(input: SetLessonOnContentInput!): Content!
+  setLessonsOnDicipline(input: SetLessonsOnDiciplineInput!): dicipline!
   setStudentsOnDicipline(input: SetStudentsOnDiciplineInput!): dicipline!
   updateManyBaseDTOS(input: UpdateManyBaseDTOSInput!): UpdateManyResponse!
   updateManyContents(input: UpdateManyContentsInput!): UpdateManyResponse!
@@ -684,6 +707,14 @@ input RemoveLessonFromContentInput {
   relationId: ID!
 }
 
+input RemoveLessonsFromDiciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input RemoveStudentsFromDiciplineInput {
   """The id of the record."""
   id: ID!
@@ -722,6 +753,14 @@ input SetLessonOnContentInput {
 
   """The id of relation."""
   relationId: ID!
+}
+
+input SetLessonsOnDiciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
 }
 
 input SetStudentsOnDiciplineInput {
@@ -1031,6 +1070,16 @@ type dicipline {
   createdAt: DateTime!
   deletedAt: DateTime!
   id: String!
+  lessons(
+    """Specify to filter the records returned."""
+    filter: lessonFilter! = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging! = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [lessonSort!]! = []
+  ): DiciplineLessonsConnection
   name: String!
   students(
     """Specify to filter the records returned."""
@@ -1076,6 +1125,7 @@ input diciplineFilter {
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   id: StringFieldComparison
+  lesson: diciplineFilterlessonFilter
   name: StringFieldComparison
   or: [diciplineFilter!]
   students: diciplineFilterStudentFilter
@@ -1090,6 +1140,16 @@ input diciplineFilterStudentFilter {
   key: StringFieldComparison
   name: StringFieldComparison
   or: [diciplineFilterStudentFilter!]
+  updateAt: DateFieldComparison
+}
+
+input diciplineFilterlessonFilter {
+  and: [diciplineFilterlessonFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  or: [diciplineFilterlessonFilter!]
   updateAt: DateFieldComparison
 }
 
